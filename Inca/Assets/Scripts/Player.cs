@@ -6,7 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    float moveSpeed = 2f;
+    float moveSpeed = 2.5f;
     bool allowPlayerInput = true;
     Vector3 currentMovementVector;
     Vector3 moveLeft = new Vector3(-1f, 0f, 0f);
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
             return;
         }
         PlayerInput();
-        PlayerMovement();
+        MovePlayer();
     }
 
     private void PlayerInput()
@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
         allowPlayerInput = !allowPlayerInput;
     }
 
-    private void PlayerMovement()
+    private void MovePlayer()
     {
         if (!allowPlayerInput) //means player has pressed a direction key and the player is now moving in that direction
         {
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         transform.position = roundPos.RoundPlayerPosition(transform.position);
-        ManagePlayerInputAllow();
+        allowPlayerInput = true;
     }
 
 }

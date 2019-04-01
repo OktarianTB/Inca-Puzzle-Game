@@ -16,7 +16,7 @@ TagManager:
   - Back
   - Front
   - Player
-  - 
+  - Object
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Front
     uniqueID: 3709002689
+    locked: 0
+  - name: Object
+    uniqueID: 1031717133
     locked: 0
   - name: Player
     uniqueID: 2291089929
