@@ -11,11 +11,11 @@ public class CheckValidInput : MonoBehaviour
     {
         Vector3 checkPos = position + new Vector3(-1f, 0f, 0f);
 
-        if (position.x < -max)
+        if (position.x < -max) //checks if there is a wall left
         {
             return false;
         }
-        else if(CheckForObject(checkPos))
+        else if(CheckForObject(checkPos)) // checks if there is an object to the left
         {
             return false;
         }

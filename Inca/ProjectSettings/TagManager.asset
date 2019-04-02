@@ -17,7 +17,7 @@ TagManager:
   - Front
   - Player
   - Object
-  - 
+  - Win
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Object
     uniqueID: 1031717133
+    locked: 0
+  - name: Win
+    uniqueID: 1268245299
     locked: 0
   - name: Player
     uniqueID: 2291089929

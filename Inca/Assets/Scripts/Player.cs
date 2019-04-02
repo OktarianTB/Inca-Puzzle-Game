@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
 
     float moveSpeed = 2.5f;
     bool allowPlayerInput = true;
+    bool playerHasWon = false;
     Vector3 currentMovementVector;
     Vector3 moveLeft = new Vector3(-1f, 0f, 0f);
     Vector3 moveRight = new Vector3(1f, 0f, 0f);
@@ -83,7 +84,7 @@ public class Player : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (!allowPlayerInput) //means player has pressed a direction key and the player is now moving in that direction
+        if (!allowPlayerInput && !playerHasWon) //means player has pressed a direction key and the player is now moving in that direction
         {
             Vector3 targetPosition = transform.position + currentMovementVector;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -93,6 +94,12 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.name == "Win")
+        {
+            print("Win!");
+            playerHasWon = true;
+            return;
+        }
         transform.position = roundPos.RoundPlayerPosition(transform.position);
         allowPlayerInput = true;
     }
