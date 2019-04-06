@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
 
     float moveSpeed = 2.5f;
+    float timeForLoad = 1.5f;
     bool allowPlayerInput = true;
     bool playerHasWon = false;
     Vector3 currentMovementVector;
@@ -18,12 +19,16 @@ public class Player : MonoBehaviour
     Rigidbody2D playerRigidbody;
     RoundPosition roundPos;
     CheckValidInput inputCheck;
+    LevelManager lvlManager;
+    RegisterWinPosition winPositionReg;
 
     void Start()
     {
         playerRigidbody = GetComponent<Rigidbody2D>();
         roundPos = FindObjectOfType<RoundPosition>();
         inputCheck = FindObjectOfType<CheckValidInput>();
+        lvlManager = FindObjectOfType < LevelManager>();
+        winPositionReg = FindObjectOfType<RegisterWinPosition>();
 
         if (!playerRigidbody)
         {
@@ -37,11 +42,19 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("CheckValidInput is missing");
         }
+        if (!lvlManager)
+        {
+            Debug.LogWarning("Level Manager is missing");
+        }
+        if (!winPositionReg)
+        {
+            Debug.LogWarning("Register Win Position is missing");
+        }
     }
     
     void Update()
     {
-        if (!playerRigidbody || !roundPos ||!inputCheck)
+        if (!playerRigidbody || !roundPos ||!inputCheck || !lvlManager ||!winPositionReg)
         {
             Debug.LogWarning("An error has been detected. Update is no longer running.");
             return;
@@ -89,19 +102,32 @@ public class Player : MonoBehaviour
             Vector3 targetPosition = transform.position + currentMovementVector;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
         }
+        else if (playerHasWon)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, winPositionReg.winPosition, moveSpeed * Time.deltaTime);
+        }
+
         transform.position = new Vector3(Mathf.Clamp(transform.position.x, -3.5f, 3.5f), Mathf.Clamp(transform.position.y, -3.5f, 3.5f), 0f);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.name == "Win")
+        if(collision.name == "Win" && !playerHasWon)
         {
-            print("Win!");
+            StartCoroutine(WaitForNextLevel());
             playerHasWon = true;
             return;
         }
-        transform.position = roundPos.RoundPlayerPosition(transform.position);
-        allowPlayerInput = true;
+        else
+        {
+            transform.position = roundPos.RoundPlayerPosition(transform.position);
+            allowPlayerInput = true;
+        }
     }
 
+    IEnumerator WaitForNextLevel()
+    {
+        yield return new WaitForSeconds(timeForLoad);
+        lvlManager.LoadNextLevel();
+    }
 }
