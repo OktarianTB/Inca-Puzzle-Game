@@ -6,6 +6,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    [SerializeField] GameObject winPanel;
+
     float moveSpeed = 2.5f;
     float timeForLoad = 1.5f;
     bool allowPlayerInput = true;
@@ -27,7 +29,6 @@ public class Player : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody2D>();
         roundPos = FindObjectOfType<RoundPosition>();
         inputCheck = FindObjectOfType<CheckValidInput>();
-        lvlManager = FindObjectOfType < LevelManager>();
         winPositionReg = FindObjectOfType<RegisterWinPosition>();
 
         if (!playerRigidbody)
@@ -42,19 +43,23 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("CheckValidInput is missing");
         }
-        if (!lvlManager)
-        {
-            Debug.LogWarning("Level Manager is missing");
-        }
         if (!winPositionReg)
         {
             Debug.LogWarning("Register Win Position is missing");
+        }
+        if (!winPanel)
+        {
+            Debug.LogWarning("Win Panel is missing");
+        }
+        else
+        {
+            winPanel.gameObject.SetActive(false);
         }
     }
     
     void Update()
     {
-        if (!playerRigidbody || !roundPos ||!inputCheck || !lvlManager ||!winPositionReg)
+        if (!playerRigidbody || !roundPos ||!inputCheck ||!winPositionReg ||!winPanel)
         {
             Debug.LogWarning("An error has been detected. Update is no longer running.");
             return;
@@ -128,6 +133,6 @@ public class Player : MonoBehaviour
     IEnumerator WaitForNextLevel()
     {
         yield return new WaitForSeconds(timeForLoad);
-        lvlManager.LoadNextLevel();
+        winPanel.gameObject.SetActive(true);
     }
 }
