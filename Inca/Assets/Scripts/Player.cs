@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     CheckValidInput inputCheck;
     LevelManager lvlManager;
     RegisterWinPosition winPositionReg;
+    Pause pause;
 
     void Start()
     {
@@ -30,6 +31,7 @@ public class Player : MonoBehaviour
         roundPos = FindObjectOfType<RoundPosition>();
         inputCheck = FindObjectOfType<CheckValidInput>();
         winPositionReg = FindObjectOfType<RegisterWinPosition>();
+        pause = FindObjectOfType<Pause>();
 
         if (!playerRigidbody)
         {
@@ -55,11 +57,15 @@ public class Player : MonoBehaviour
         {
             winPanel.gameObject.SetActive(false);
         }
+        if (!pause)
+        {
+            Debug.LogWarning("Pause Script is missing from Player Object");
+        }
     }
     
     void Update()
     {
-        if (!playerRigidbody || !roundPos ||!inputCheck ||!winPositionReg ||!winPanel)
+        if (!playerRigidbody || !roundPos ||!inputCheck ||!winPositionReg ||!winPanel ||!pause)
         {
             Debug.LogWarning("An error has been detected. Update is no longer running.");
             return;
@@ -70,7 +76,7 @@ public class Player : MonoBehaviour
 
     private void PlayerInput()
     {
-        if (allowPlayerInput)
+        if (allowPlayerInput && !pause.gameIsPaused)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) && inputCheck.LeftInputIsValid(transform.position))
             {
@@ -93,6 +99,11 @@ public class Player : MonoBehaviour
                 ManagePlayerInputAllow();
             }
         }
+        if (Input.GetKeyDown(KeyCode.Escape) && !playerHasWon)
+        {
+            pause.ManagePause();
+        }
+
     }
 
     private void ManagePlayerInputAllow()

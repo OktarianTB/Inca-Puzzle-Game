@@ -2180,11 +2180,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 147596994}
-    - target: {fileID: 8033902308069075378, guid: 70376a85d2f342d41bc931516da0391d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadNextLevel
-      objectReference: {fileID: 0}
     - target: {fileID: 8033902306206851420, guid: 70376a85d2f342d41bc931516da0391d,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -2200,11 +2195,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 147596994}
-    - target: {fileID: 8033902306206851411, guid: 70376a85d2f342d41bc931516da0391d,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadMenu
-      objectReference: {fileID: 0}
     - target: {fileID: 8033902306708387882, guid: 70376a85d2f342d41bc931516da0391d,
         type: 3}
       propertyPath: m_havePropertiesChanged
@@ -2215,11 +2205,52 @@ PrefabInstance:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7986442524118932329, guid: 70376a85d2f342d41bc931516da0391d,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7986442524118932329, guid: 70376a85d2f342d41bc931516da0391d,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771382332021790645, guid: 70376a85d2f342d41bc931516da0391d,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8771382332021790645, guid: 70376a85d2f342d41bc931516da0391d,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2007179370492993134, guid: 70376a85d2f342d41bc931516da0391d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 147596994}
+    - target: {fileID: 1653700199892512265, guid: 70376a85d2f342d41bc931516da0391d,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653700199892512265, guid: 70376a85d2f342d41bc931516da0391d,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 70376a85d2f342d41bc931516da0391d, type: 3}
 --- !u!1 &2094143873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8033902306656455029, guid: 70376a85d2f342d41bc931516da0391d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2094143872}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2094143874 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 955562386324897272, guid: 70376a85d2f342d41bc931516da0391d,
     type: 3}
   m_PrefabInstance: {fileID: 2094143872}
   m_PrefabAsset: {fileID: 0}
@@ -2571,5 +2602,10 @@ PrefabInstance:
       propertyPath: winPanel
       value: 
       objectReference: {fileID: 2094143873}
+    - target: {fileID: 3124970833548469892, guid: 5d1297284ea040845a61a6cc86fadf3a,
+        type: 3}
+      propertyPath: pausePanel
+      value: 
+      objectReference: {fileID: 2094143874}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d1297284ea040845a61a6cc86fadf3a, type: 3}
