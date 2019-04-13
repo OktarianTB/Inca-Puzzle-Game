@@ -16,6 +16,17 @@ public class LevelManager : MonoBehaviour
         Application.Quit();
     }
 
+    public void ContinuePlaying()
+    {
+        Pause pause = FindObjectOfType<Pause>();
+        if (!pause)
+        {
+            Debug.LogWarning("Pause Script is missing from player");
+            return;
+        }
+        pause.ManagePause();
+    }
+
     public void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;

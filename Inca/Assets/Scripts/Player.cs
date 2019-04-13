@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
 
     float moveSpeed = 2.5f;
     float timeForLoad = 1.5f;
-    bool allowPlayerInput = true;
-    bool playerHasWon = false;
+    public bool playerIsStatic = true;
+    public bool playerHasWon = false;
     Vector3 currentMovementVector;
     Vector3 moveLeft = new Vector3(-1f, 0f, 0f);
     Vector3 moveRight = new Vector3(1f, 0f, 0f);
@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     LevelManager lvlManager;
     RegisterWinPosition winPositionReg;
     Pause pause;
+    AudioManager audioManager;
 
     void Start()
     {
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
         inputCheck = FindObjectOfType<CheckValidInput>();
         winPositionReg = FindObjectOfType<RegisterWinPosition>();
         pause = FindObjectOfType<Pause>();
+        audioManager = FindObjectOfType<AudioManager>();
 
         if (!playerRigidbody)
         {
@@ -61,11 +63,15 @@ public class Player : MonoBehaviour
         {
             Debug.LogWarning("Pause Script is missing from Player Object");
         }
+        if (!audioManager)
+        {
+            Debug.LogWarning("Audio Manager is missing");
+        }
     }
     
     void Update()
     {
-        if (!playerRigidbody || !roundPos ||!inputCheck ||!winPositionReg ||!winPanel ||!pause)
+        if (!playerRigidbody || !roundPos ||!inputCheck ||!winPositionReg ||!winPanel ||!pause ||!audioManager)
         {
             Debug.LogWarning("An error has been detected. Update is no longer running.");
             return;
@@ -76,7 +82,7 @@ public class Player : MonoBehaviour
 
     private void PlayerInput()
     {
-        if (allowPlayerInput && !pause.gameIsPaused)
+        if (playerIsStatic && !pause.gameIsPaused)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow) && inputCheck.LeftInputIsValid(transform.position))
             {
@@ -108,12 +114,12 @@ public class Player : MonoBehaviour
 
     private void ManagePlayerInputAllow()
     {
-        allowPlayerInput = !allowPlayerInput;
+        playerIsStatic = !playerIsStatic;
     }
 
     private void MovePlayer()
     {
-        if (!allowPlayerInput && !playerHasWon) //means player has pressed a direction key and the player is now moving in that direction
+        if (!playerIsStatic && !playerHasWon) //means player has pressed a direction key and the player is now moving in that direction
         {
             Vector3 targetPosition = transform.position + currentMovementVector;
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -136,8 +142,9 @@ public class Player : MonoBehaviour
         }
         else
         {
+            audioManager.PlayCollisionSound();
             transform.position = roundPos.RoundPlayerPosition(transform.position);
-            allowPlayerInput = true;
+            playerIsStatic = true;
         }
     }
 
